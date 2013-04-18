@@ -1,11 +1,11 @@
 Summary:	libfm library
 Name:		libfm
-Version:	1.0.1
+Version:	1.1.0
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/pcmanfm/%{name}-%{version}.tar.gz
-# Source0-md5:	7fb406f38f99c9171661f72fa6d4da7f
+# Source0-md5:	a5bc8b8291cf810c659bfb3af378b5de
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib-gio-devel
@@ -56,7 +56,9 @@ libfm API documentation.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-static \
+	--disable-static	\
+	--enable-udisks		\
+	--with-gtk=2		\
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
@@ -66,8 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/gio/modules/*.la
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/{no,sv_SE,tt_RU,ur_PK}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{tt_RU,ur_PK}
 
 %find_lang %{name}
 
@@ -107,10 +108,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libfm-gtk.la
 %{_libdir}/libfm.la
 %{_includedir}/libfm
+%{_includedir}/libfm-1.0
 %{_pkgconfigdir}/libfm-gtk.pc
+%{_pkgconfigdir}/libfm-gtk3.pc
 %{_pkgconfigdir}/libfm.pc
 
+%if 0
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/%{name}
+%endif
 
