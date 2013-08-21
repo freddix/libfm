@@ -1,11 +1,11 @@
 Summary:	libfm library
 Name:		libfm
-Version:	1.1.0
+Version:	1.1.2
 Release:	1
 License:	GPL v2
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/pcmanfm/%{name}-%{version}.tar.gz
-# Source0-md5:	a5bc8b8291cf810c659bfb3af378b5de
+# Source0-md5:	c09072e26b9688a7d171843c0da9b33f
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib-gio-devel
@@ -105,12 +105,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libfm-gtk.so
 %attr(755,root,root) %{_libdir}/libfm.so
-%{_libdir}/libfm-gtk.la
-%{_libdir}/libfm.la
 %{_includedir}/libfm
 %{_includedir}/libfm-1.0
 %{_pkgconfigdir}/libfm-gtk.pc
-%{_pkgconfigdir}/libfm-gtk3.pc
+#%{_pkgconfigdir}/libfm-gtk3.pc
 %{_pkgconfigdir}/libfm.pc
 
 %if 0
