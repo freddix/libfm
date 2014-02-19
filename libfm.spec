@@ -1,11 +1,11 @@
 Summary:	libfm library
 Name:		libfm
-Version:	1.1.2
+Version:	1.2.0
 Release:	1
 License:	GPL v2
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/pcmanfm/%{name}-%{version}.tar.gz
-# Source0-md5:	c09072e26b9688a7d171843c0da9b33f
+Source0:	http://downloads.sourceforge.net/pcmanfm/%{name}-%{version}.tar.xz
+# Source0-md5:	07d1361bc008db46b0fd4c775f5696de
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	glib-gio-devel
@@ -68,6 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/{tt_RU,ur_PK}
 
 %find_lang %{name}
@@ -87,22 +88,36 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
+%attr(755,root,root) %ghost %{_libdir}/libfm-extra.so.?
 %attr(755,root,root) %ghost %{_libdir}/libfm-gtk.so.?
 %attr(755,root,root) %ghost %{_libdir}/libfm.so.?
+%attr(755,root,root) %{_libdir}/libfm-extra.so.*.*.*
 %attr(755,root,root) %{_libdir}/libfm-gtk.so.*.*.*
 %attr(755,root,root) %{_libdir}/libfm.so.*.*.*
 
 %files runtime -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/libfm-pref-apps
+%attr(755,root,root) %{_bindir}/lxshortcut
+%dir %{_libdir}/libfm
+%dir %{_libdir}/libfm/modules
+%attr(755,root,root) %{_libdir}/libfm/modules/gtk-fileprop-x-desktop.so
+%attr(755,root,root) %{_libdir}/libfm/modules/gtk-fileprop-x-shortcut.so
+%attr(755,root,root) %{_libdir}/libfm/modules/gtk-menu-actions.so
+%attr(755,root,root) %{_libdir}/libfm/modules/gtk-menu-trash.so
+%attr(755,root,root) %{_libdir}/libfm/modules/vfs-menu.so
+%attr(755,root,root) %{_libdir}/libfm/modules/vfs-search.so
 %{_datadir}/libfm
 %{_datadir}/mime/packages/libfm.xml
 %{_desktopdir}/libfm-pref-apps.desktop
+%{_desktopdir}/lxshortcut.desktop
 %{_sysconfdir}/xdg/libfm
 %{_mandir}/man1/libfm-pref-apps.1*
+%{_mandir}/man1/lxshortcut.1*
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libfm-extra.so
 %attr(755,root,root) %{_libdir}/libfm-gtk.so
 %attr(755,root,root) %{_libdir}/libfm.so
 %{_includedir}/libfm
